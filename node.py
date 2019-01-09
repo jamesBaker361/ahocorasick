@@ -5,6 +5,7 @@ class Node:
 		self.nodeChars=[]
 		self.root=None
 		self.endNode=False
+		self.dic={}
 
 	def addLink(self,node):
 		self.nodes.append(node)
@@ -62,14 +63,36 @@ def printNode(root,tabs=0,word=""):
 		printNode(root.nodes[x],tabs+1,word)
 
 def buildTree(root,lis):
+	root.dic={}
 	for word in lis:
+		root.dic[word]=0
 		root.newWord(word)
 
+def countHits(root,stream):
+	hits=0
+	pointer=root
+	index=0
+	while index<len(stream):
+		nex=pointer.getNode(stream[index:index+1])
+		if nex is not None:
+			pointer=nex
+			index+=1
+		else:
+			if pointer is root:
+				index+=1
+			pointer=root
+		if pointer.endNode is True:
+			hits+=1
+	if pointer.endNode is True:
+		hits+=0
+	return(hits)
+
 def main():
-	a=Node(' ')
+	a=Node('\n')
 	a.root=a
 	buildTree(a,["james","leonard","jamesxxx","baker","baykey"])
-	printNode(a)
+	print(countHits(a,"james leonard jamesxxx"))
+	#printNode(a)
 
 if __name__ == '__main__':
 	main()
