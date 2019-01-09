@@ -72,19 +72,21 @@ def countHits(root,stream):
 	hits=0
 	pointer=root
 	index=0
+	word=""
 	while index<len(stream):
 		nex=pointer.getNode(stream[index:index+1])
 		if nex is not None:
+			word+=nex.char
 			pointer=nex
 			index+=1
 		else:
+			word=""
 			if pointer is root:
 				index+=1
 			pointer=root
 		if pointer.endNode is True:
+			root.dic[word]+=1
 			hits+=1
-	if pointer.endNode is True:
-		hits+=0
 	return(hits)
 
 def main():
@@ -92,6 +94,8 @@ def main():
 	a.root=a
 	buildTree(a,["james","leonard","jamesxxx","baker","baykey"])
 	print(countHits(a,"james leonard jamesxxx"))
+	for key in a.dic:
+		print(key+ str(a.dic[key]))
 	#printNode(a)
 
 if __name__ == '__main__':
