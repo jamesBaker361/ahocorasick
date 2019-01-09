@@ -4,6 +4,7 @@ class Node:
 		self.nodes=[]
 		self.nodeChars=[]
 		self.root=None
+		self.endNode=False
 
 	def addLink(self,node):
 		self.nodes.append(node)
@@ -18,6 +19,7 @@ class Node:
 
 	def addWord(self,word):
 		if len(word)==0:
+			self.endNode=True
 			return
 		else:
 			r=self.addLink(newNode(word[0],self.root))
@@ -32,9 +34,9 @@ class Node:
 				if(self.nodeChars[x]==query):
 					return(self.nodes[x].findWord(word[1:len(word)]))
 			return None
-	
 	def newWord(self,word):
 		if len(word)==0:
+			self.endNode=True
 			return
 		else:
 			query=word[0]
@@ -59,16 +61,14 @@ def printNode(root,tabs=0,word=""):
 	for x in range(0,len(root.nodes)):
 		printNode(root.nodes[x],tabs+1,word)
 
-
+def buildTree(root,lis):
+	for word in lis:
+		root.newWord(word)
 
 def main():
 	a=Node(' ')
 	a.root=a
-	a.addWord("penis")
-	a.newWord("penises")
-	a.newWord("penisas")
-	a.newWord("hpenis")
-	a.newWord("hpenny")
+	buildTree(a,["james","leonard","jamesxxx","baker","baykey"])
 	printNode(a)
 
 if __name__ == '__main__':
