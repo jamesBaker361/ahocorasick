@@ -6,6 +6,7 @@ class Node:
 		self.root=None
 		self.endNode=False
 		self.dic={}
+		self.data=None
 
 	def addLink(self,node):
 		self.nodes.append(node)
@@ -89,13 +90,20 @@ def countHits(root,stream):
 			hits+=1
 	return(hits)
 
+class Ahodict():
+	def __init__(self,lis,root):
+		self.root=root
+		buildTree(self.root,lis)
+
+	def getKey(self,key):
+		return(self.root.findWord(key))
+
+	def getValue(self,key):
+		return(self.root.findWord(key)).data
+
 def main():
-	a=Node('\n')
-	a.root=a
-	buildTree(a,["james","leonard","jamesxxx","baker","baykey"])
-	print(countHits(a,"james leonard jamesxxx"))
-	for key in a.dic:
-		print(key+ str(a.dic[key]))
+	root=Node('')
+	root.root=root
 	#printNode(a)
 
 if __name__ == '__main__':
