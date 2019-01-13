@@ -1,3 +1,5 @@
+import sys
+
 class Node:
 	def __init__(self, char):
 		self.char=char
@@ -104,6 +106,17 @@ class Ahodict():
 def main():
 	root=Node('')
 	root.root=root
+	stream=""
+	if len(sys.argv) == 1:
+		print("Enter a file to read and words to look for")
+	if len(sys.argv) > 1:
+		stream=open(sys.argv[1],"r+").read()
+	if len(sys.argv) > 2:
+		lis=[]
+		for x in range(1,len(sys.argv)):
+			lis.append(sys.argv[x])
+		buildTree(root,lis)
+		print("Hits: "+str(countHits(root,stream)))
 	#printNode(a)
 
 if __name__ == '__main__':
